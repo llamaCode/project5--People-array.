@@ -1,8 +1,6 @@
-# people -- arrays of objects
+# people -- manipulate an array of objects.
 
-Write a Java/Processing program that manipulates an array of objects.
-
-Create a **```Person```** class and make an array containing at least eight instances.
+Create a **```Person```** class and make an array containing at least eight instances.  
 Each instance of the ```Person``` object should have *(at least)* the folowing properties:
 - w (weight, in pounds)
 - h (height, in inches)
@@ -14,9 +12,10 @@ and a **```show()```** method
 to display an image of the person
 (using a rectangle proportional to w and h) 
 plus a head and legs.  
-Display the name, width, and height underneath each image.
-  -- Height should be shown in feet and inches.
-  -- Width represents pounds (or "#")
+Display the name, width, and height underneath each image:
+- Height should be shown in feet and inches.
+- Width represents pounds (or "#")
+<IMG SRC=http://www.suffolk.li/cst112/61cst112/people2.png ALIGN=RIGHT WIDTH=250 >
 
 Write main-program functions to accomplish the following,  
 and call these whenever the approriate button is clicked *(or when a key is pressed)*:
