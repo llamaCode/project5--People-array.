@@ -1,5 +1,5 @@
 //// People objects (different widths & heights)
-//// (Without arrays.)
+//// "people1.pde" without arrays.
 
 Person a, b, c, d;
 float horizon;
