@@ -15,7 +15,7 @@ plus a head and legs.
 Display the name, width, and height underneath each image:
 - Height should be shown in feet and inches.
 - Width represents pounds (or "#")
-<IMG SRC=http://www.suffolk.li/cst112/61cst112/people2.png ALIGN=RIGHT WIDTH=250 >
+<IMG SRC=http://www.suffolk.li/cst112/61cst112/students/people2.png ALIGN=RIGHT WIDTH=300 >
 
 Write main-program functions to accomplish the following,  
 and call these whenever the approriate button is clicked *(or when a key is pressed)*:
