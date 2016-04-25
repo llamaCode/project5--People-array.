@@ -1,7 +1,7 @@
 # people -- manipulate an array of objects.
 
 Create a **```Person```** class and make an array containing at least eight instances.  
-Each instance of the ```Person``` object should have *(at least)* the folowing properties:
+Each instance of the ```Person``` object should have the folowing properties:
 - w (weight, in pounds)
 - h (height, in inches)
 - name (```String```)
@@ -24,7 +24,7 @@ and call these whenever the approriate button is clicked *(or when a key is pres
 - **Reset** -- Re-initialize all people (with random values for w and h).
 
 **NOTE:**  After moving an element to the end of the array, be sure to replace that element with the one that was previously at the end
-*(i.e. "swap" the elements).
+*(i.e. "swap" the elements)*.
 
 Show the entire array, in order, near the bottom of the screen.  
 
