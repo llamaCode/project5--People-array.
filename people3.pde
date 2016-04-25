@@ -49,7 +49,7 @@ void fly( float x, float y) {
   fill(255,255,0);
   ellipse( birdX,birdY, 30,20);
   ellipse( birdX+20,birdY, 10,10);
-  float up=  birdX%10<5?-30:30;
+  float up=  birdX%30<10?-30:30;
   triangle( birdX-10,birdY, birdX+10,birdY, birdX,birdY-up );
 }
 
@@ -120,7 +120,7 @@ void keyPressed() {
   if (key == 'r') reset();
   if (key == 't') tallest();
   if (key == 'f') fattest();
-  if (key == 'b') birdX=1;
+  if (key == 'b') birdX=birdY=1;
 }
 
 //// Move the tallest one to the end.
