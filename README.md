@@ -17,14 +17,19 @@ Display the name, width, and height underneath each image:
 - Width represents pounds (or "#")
 <IMG SRC=http://www.suffolk.li/cst112/61cst112/students/people2.png ALIGN=RIGHT WIDTH=300 >
 
-Write main-program functions to accomplish the following;  
-call these when a button is clicked *(or key pressed)*:
+###ARRAY:
+Create an array of **```Person```** objects,  
+and main-program functions to manipulate them.
+
+Perform the following operations when a button is clicked *(or key pressed)*:
+- **Reset** -- Re-initialize all people (with random values for w and h).   
 - **Tallest** -- Move the tallest to the end.
 - **Fattest** -- Move the widest to the end.  
-- **Reset** -- Re-initialize all people (with random values for w and h).   
-  **NOTE:**  After moving an element to the end of the array, be sure to replace it with the one that was previously at the end *(i.e. "swap" the elements)*.
+    -- **NOTE:**  After moving an element to the end of the array, be sure to replace it with the one that was previously at the end *(i.e. "swap" the elements)*.
 
-**DISPLAY** the entire array, in order, near the bottom of the screen.  
+<HR>
+###DISPLAY:
+Display the entire array, in order, near the bottom of the screen.  
 
 Also show a set of clouds moving slowly across the sky.  
 When clouds reach the right side, a new set of clouds begins at a random height on the left.  
