@@ -27,7 +27,7 @@ Perform the following operations when a button is clicked *(or key pressed)*:
 - **Fattest** -- Move the widest to the end.  
     -- _**NOTE:**  After moving an element to the end of the array, be sure to replace it with whatever was previously at the end (i.e. "**swap**" the elements)_.
 
-<HR>
+<HR> 
 ###DISPLAY:
 Display the entire array, in order, near the bottom of the screen.  
 
