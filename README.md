@@ -28,6 +28,10 @@ and call these whenever the approriate button is clicked *(or when a key is pres
 
 Show the entire array, in order, near the bottom of the screen.  
 
+Also show a set of clouds moving slowly across the sky.  
+When clouds reach the right side, a new set of clouds begins at a random height on the left.  
+Each set has a random number of clouds, with each cloud smaller and lower in the sky. 
+
 Features of the final program are illustrated by sample programs *(which do not use arrays)*:
 - people1.pde 
 - people2.pde  
