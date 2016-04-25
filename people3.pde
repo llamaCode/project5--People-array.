@@ -48,7 +48,9 @@ void fly( float x, float y) {
   birdY += (y-birdY) / 30;
   fill(255,255,0);
   ellipse( birdX,birdY, 30,20);
-  triangle( birdX-10,birdY, birdX-10,birdY, birdX,birdY-30 );
+  ellipse( birdX+20,birdY, 10,10);
+  float up=  birdX%10<5?-30:30;
+  triangle( birdX-10,birdY, birdX+10,birdY, birdX,birdY-up );
 }
 
 //// Next frame:  display all people & statistics.
@@ -94,13 +96,14 @@ void clouds() {
   fill( 250,250,250, 100 );
   noStroke();
   float xx=cloudX, yy=cloudY, ww=80, hh=30;
-  for (int j=0; j<7; j++) {
+  for (int j=0; j<cloudN; j++) {
     ellipse( xx,yy, ww,hh );
     xx -= ww;
     yy+=  hh/2;
     ww *= 0.9;
     hh *= 0.9;
   }
+  text( cloudN, xx,yy );
   cloudX++;
   if (cloudX>width+400) {
     cloudX=0;
