@@ -25,7 +25,7 @@ Perform the following operations when a button is clicked *(or key pressed)*:
 - **Reset** -- Re-initialize all people (with random values for w and h).   
 - **Tallest** -- Move the tallest to the end.
 - **Fattest** -- Move the widest to the end.  
-    -- **NOTE:**  After moving an element to the end of the array, be sure to replace it with the one that was previously at the end *(i.e. "swap" the elements)*.
+    -- _**NOTE:**  After moving an element to the end of the array, be sure to replace it with whatever was previously at the end (i.e. "**swap**" the elements)_.
 
 <HR>
 ###DISPLAY:
