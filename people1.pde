@@ -68,12 +68,12 @@ void tallest() {
     a= d;
     d= tmp;
   }  
-  if (b.h>c.h && b.h>d.h) {
+  else if (b.h>c.h && b.h>d.h) {
     Person tmp=  b;
     b= d;
     d= tmp;
   }  
-  if (c.h>d.h) {
+  else if (c.h>d.h) {
     Person tmp=  c;
     c= d;
     d=  tmp;
@@ -86,11 +86,11 @@ void fattest() {
     d=  a;
     a= tmp;
   }  
-  if (b.pounds()>c.pounds() && b.pounds()>d.pounds()) {
+  else if (b.pounds()>c.pounds() && b.pounds()>d.pounds()) {
     d=  b;
     b= tmp;
   }  
-  if (c.pounds()>d.pounds()) {
+  else if (c.pounds()>d.pounds()) {
     d=  c;
     c=  tmp;
   }  
