@@ -41,10 +41,10 @@ void draw() {
   lineup();
   reports();
   //
-  fill(0);
+  fill(200);
   textSize(20);
   for (int j=0; j<alt.length; j++) {
-    text( alt[j], 100, 200+20*j );
+    text( alt[j], 50, 200+20*j );
   }
 }
 
@@ -68,7 +68,7 @@ void help() {
   s += "\n  t moves tallest to end; s moves shortest to end";
   s += "\n  w moves widest to end; n moves narrowest to end";
   s += "\n\n  b sends bird to top of tallest!";
-  text( s, width/2, 150 );
+  text( s, 50, 50 );
 }
 
 
@@ -83,7 +83,7 @@ void lineup() {
 
 void reports() {
   // Report min, max, avg for height & width.
-  int x=20, y=50, line=5, next=12;        // Text position.
+  int x=width/2, y=50, line=5, next=12;        // Text position.
   int jmax, jmin;
   float total, average;
   jmax=  whereTall(people,many);
@@ -98,7 +98,10 @@ void reports() {
   text( "Shortest is: " + people[jmin].name,  x, next*line++ );
   text( "Average H:  " + average,  x, next*line++ );
   //
-  x=  200;        // Next column
+  people[jmin].show( x+30, next+250 );
+  people[jmax].show( x+90, next+250 );
+  //
+  x += 200;        // Next column
   y=  50;
   line=5;
   jmax=  whereWide(people,many);
@@ -108,9 +111,12 @@ void reports() {
     total += people[j].w;
   }
   average=  total / many;
+  fill(0);
   text( "Widest is:   " + people[jmax].name,  x, next*line++ );
   text( "Narrowest is:" + people[jmin].name,  x, next*line++ );
   text( "Average W:  " + average,  x, next*line++ );
+  people[jmin].show( x+30, next+250 );
+  people[jmax].show( x+90, next+250 );
 }
 
 void shorty( Person[] p, int m ) {
