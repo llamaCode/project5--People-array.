@@ -86,6 +86,7 @@ void reports() {
   int x=width/2, y=50, line=5, next=12;        // Text position.
   int jmax, jmin;
   float total, average;
+  // Height Report //
   jmax=  whereTall(people,many);
   jmin=  whereShort(people,many);
   total=0;
@@ -93,14 +94,19 @@ void reports() {
     total += people[j].h;
   }
   average=  total / many;
-  fill(0);
+  fill(200,0,0);
   text( "Tallest is:  " + people[jmax].name,  x, next*line++ );
   text( "Shortest is: " + people[jmin].name,  x, next*line++ );
   text( "Average H:  " + average,  x, next*line++ );
   //
   people[jmin].show( x+30, next+250 );
   people[jmax].show( x+90, next+250 );
+  fill(200,0,0);
+  rect( x+80,next+300, 150,10 );
   //
+  // Width Report //
+  //
+  fill(0,150,0);
   x += 200;        // Next column
   y=  50;
   line=5;
@@ -111,12 +117,14 @@ void reports() {
     total += people[j].w;
   }
   average=  total / many;
-  fill(0);
+  fill(0,150,0);
   text( "Widest is:   " + people[jmax].name,  x, next*line++ );
   text( "Narrowest is:" + people[jmin].name,  x, next*line++ );
   text( "Average W:  " + average,  x, next*line++ );
   people[jmin].show( x+30, next+250 );
   people[jmax].show( x+90, next+250 );
+  fill(0,150,0);  
+  rect( x+80,next+300, 150,10 );
 }
 
 void shorty( Person[] p, int m ) {
