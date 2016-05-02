@@ -1,15 +1,16 @@
 //// Project 5 sample
 
 String title=  "Project 5 -- Array of people";
-String subtitle=  "r to reset, q to quit, ? for help, space for reports"; 
+String subtitle=  "r to reset, q to quit, ? for help, SPACE for reports"; 
 String author=  "Firstname Lastname";
-float sidewalk;
+float sidewalk=550;
 
-boolean help=false, report=false, bird=false, ascending=true;
+boolean help=false, report=false, ascending=true, bird=false, rat=true;
 String up="    --->", down="    <---";
 
 int xReport=250, line=10, next=12;      // Line height.
 float birdX=1, birdY=0;
+float ratX=1, ratY=sidewalk+50;
 float cloudX=0, cloudY=100;
 int cloudN=7;
 
@@ -37,6 +38,7 @@ int numButtons=3;
 void setup() {
   size(1250, 600);
   sidewalk=  height-100;
+  ratY=sidewalk+50;
   reset();
   //
   int x=20, y=height-40, b=0;
@@ -60,15 +62,12 @@ void draw() {
   background(200, 243, 252);
   scene();
   lineup();
-  if (bird) {
-    int k=  whereTall( people, many );
-    fly( 20+k*50, sidewalk - 1.5*people[k].h );
-  }
-  //
+  animals();
   messages();
   if (help) {  
     help();
   }
+  // Display reports OR buttons.
   if (report) reports();
   else {
     for (int j=0; j<numButtons; j++) {
@@ -111,6 +110,7 @@ void help() {
   s += "\nOTHER:";
   s += "\n  + makes everyone older.";
   s += "\n  b sends bird to top of tallest!";
+  s += "\n  m sends mouse to feet of fattest!";
   fill(0);
   text( s, 15, 15 );
 }
@@ -223,10 +223,13 @@ void keyPressed() {
   if (key == 'h') help=  ! help;
   if (key == '?') help=  ! help;
   if (key == 'b') bird = ! bird;
+  if (key == 'm') rat = ! rat;
   if (key == '+') older( people, many );
   //
-  birdX=1;      // Reset bird.
+  birdX=1;      // Reset bird (and rat).
   birdY=1;
+  ratX=1;
+  ratY=sidewalk+50;
 }
 void mousePressed() {
   int n=0;
@@ -243,6 +246,8 @@ void mousePressed() {
     birdX=  mouseX;
     birdY=  mouseY;
   }
+  ratX=  0;
+  ratY= height-50;
 }
 void heightOrder( Person[] p, int m ) {
   if ( ascending ) 
@@ -278,7 +283,19 @@ void older( Person[] p, int m ) {
   }
 }
 
-
+void animals() {
+  // Bird flies to top of tallest.
+  if (bird) {
+    int k=  whereTall( people, many );
+    fly( 20+k*50, sidewalk - 1.5*people[k].h );
+  }
+  // Rat crawls to feet of fattest.
+  if (rat) {
+    int k=  whereWide( people, many );
+    crawl( 20+k*50, sidewalk );
+  }
+  //
+}
 // Bird flies to tallest Person. //
 void fly( float x, float y) {
   birdX += (x-birdX) / 30;
@@ -290,6 +307,21 @@ void fly( float x, float y) {
   float up=  birdX%30<10?-30:30;
   triangle( birdX-10, birdY, birdX+10, birdY, birdX, birdY-up );
 }
+// Rat crawls to fattest Person. //
+void crawl( float x, float y) {
+  ratX += (x-ratX+30) / 150;
+  ratY += (y-ratY) / 150;
+  fill( 50, 20, 0);
+  ellipse( ratX, ratY, 30, 15);
+  ellipse( ratX+20, ratY, 12, 10);
+  // Animated crawling.
+  float leg=  ratX%10<5 ? -10 : 10;
+  for (int j=0; j<4; j++ ) {
+    stroke( 50, 20, 0 );
+    line( ratX-12+j*8, ratY+5, ratX-12+leg+j*8, ratY+10  );
+  }
+}
+
 
 
 // Swap 2 elements of array.
