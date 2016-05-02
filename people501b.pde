@@ -64,14 +64,16 @@ void draw() {
   }
   //
   messages();
-  if (help) {  help(); }
+  if (help) {  
+    help();
+  }
   if (report) reports();
   else {
     for (int j=0; j<numButtons; j++) {
       buttons[j].show();
     }
   }
-  text( ascending ? "UP" : "DOWN", width-100,height-30 );
+  text( ascending ? "UP" : "DOWN", width-100, height-30 );
 }
 
 void scene() {
@@ -128,7 +130,7 @@ void reports() {
   // Report min, max, avg for height & width.
   int jmax, jmin;
   float total, average;
-  
+
   xReport=250;
 
 
@@ -138,7 +140,9 @@ void reports() {
   jmax=  whereTall(people, many);
   jmin=  whereShort(people, many);
   total=0;
-  for (int j=0; j<many; j++ ) { total += people[j].h; }
+  for (int j=0; j<many; j++ ) { 
+    total += people[j].h;
+  }
   average=  total / many;
   compare( "Tallest", "Shortest", people, jmax, jmin, average );
 
@@ -149,9 +153,11 @@ void reports() {
   jmax=  whereWide(people, many);
   jmin=  whereNarrow(people, many);
   total=0;
-  for (int j=0; j<many; j++ ) { total += people[j].w; }
+  for (int j=0; j<many; j++ ) { 
+    total += people[j].w;
+  }
   average=  total / many;
-    compare( "Widest", "Narrowest", people, jmax, jmin, average );
+  compare( "Widest", "Narrowest", people, jmax, jmin, average );
 
 
   // Age Report //
@@ -206,13 +212,11 @@ void keyPressed() {
   if (key == 'y') swap( people, many-1, whereYoung(people, many) );
   //
   // SORT //
-  if (key == 'T') tallOrder( people, many );    // Order by height
-  if (key == 'S') shortOrder( people, many );    // Order by height -- reversed.
-  if (key == 'W') wideOrder( people, many );    // Order by width
-  if (key == 'N') narrowOrder( people, many );    // Order by width
-  if (key == 'A') ageOrder( people, many );
-  if (key == 'O') ageOrder( people, many );    // Order by age
-  if (key == 'Y') youngOrder( people, many );    // Order by age
+  if (key == 'H') heightOrder( people, many );    // Order by height
+  if (key == 'W') widthOrder( people, many );     // Order by width
+  if (key == 'A') ageOrder( people, many );       // Order by age
+  if (key == 'U') ascending=true;
+  if (key == 'D') ascending=false;                // UP or DOWN
   //
   if (key == ' ') report=  ! report;
   if (key == 'h') help=  ! help;
@@ -224,15 +228,29 @@ void keyPressed() {
   birdY=1;
 }
 void mousePressed() {
-  if ( buttons[0].hit(mouseX,mouseY) ) tallOrder( people, many );    // Order by height
-  else if ( buttons[1].hit(mouseX,mouseY) ) wideOrder( people, many );    // Order by width
-  else if ( buttons[2].hit(mouseX,mouseY) ) ageOrder( people, many );    // Order by age
-  else if ( buttons[3].hit(mouseX,mouseY) ) ascending = ! ascending;
+  if ( buttons[0].hit(mouseX, mouseY) ) heightOrder( people, many );    // Order by height
+  else if ( buttons[1].hit(mouseX, mouseY) ) widthOrder( people, many );    // Order by width
+  else if ( buttons[2].hit(mouseX, mouseY) ) ageOrder( people, many );    // Order by age
+  else if ( buttons[3].hit(mouseX, mouseY) ) ascending = ! ascending;
   else {
     bird=  true;
-    birdX=  mouseX;;
+    birdX=  mouseX;
     birdY=  mouseY;
   }
+}
+void heightOrder( Person[] p, int m ) {
+  if ( ascending ) 
+    tallOrder( p, m ); 
+  else 
+    shortOrder( p, m ); 
+}
+void widthOrder( Person[] p, int m ) {
+  if ( ascending ) wideOrder( p, m ); 
+  else narrowOrder( p, m ); 
+}
+void ageOrder( Person[] p, int m) {
+  if ( ascending ) oldOrder( p, m ); 
+  else youngOrder( p, m ); 
 }
 
 
@@ -240,15 +258,14 @@ void mousePressed() {
 void older( Person[] p, int m ) {
   for (int j=0; j<many; j++ ) {
     p[j].age++;
+    if ( p[j].age > 100 ) p[j]=  new Person( p[j].name );    // New person; same name!
     if (p[j].age < 25) {
       p[j].h *= 1.05;        // Grow 5%
       p[j].w *= 1.02;        // Grow 3%
-    }
-    else if (p[j].age < 60) {
+    } else if (p[j].age < 60) {
       // (No height change.)
       p[j].w *= 1.01;        // Gain weight 1%/yr.
-    } 
-    else {
+    } else {
       p[j].h *= 0.99;       // Shrink 1/2%/yr
       p[j].w *= 1.02;        // Gain weight 2%/yr.
     }
@@ -296,8 +313,12 @@ void wide( Person[] p, int m ) {
 void narrow( Person[] p, int m ) {
   swap( p, whereNarrow( p, m ), m-1 );
 }
-void old( Person[] p, int m ) {  swap( p, whereOld( p, m ), m-1 ); }
-void young( Person[] p, int m ) {  swap( p, whereYoung( p, m ), m-1 );  }
+void old( Person[] p, int m ) {  
+  swap( p, whereOld( p, m ), m-1 );
+}
+void young( Person[] p, int m ) {  
+  swap( p, whereYoung( p, m ), m-1 );
+}
 
 
 // Find the index of tallest (or shortest).
@@ -320,14 +341,14 @@ int whereShort( Person[] p, int m ) {
 int whereWide( Person[] p, int m ) {
   int k=0;
   for (int j=1; j<m; j++ ) { 
-    if ( p[j].w > p[k].w ) k=j; 
+    if ( p[j].w > p[k].w ) k=j;
   }
   return k;
 }
 int whereNarrow( Person[] p, int m ) {
   int i=0;
   for (int j=1; j<m; j++ ) { 
-    if ( p[j].w < p[i].w ) i=j; 
+    if ( p[j].w < p[i].w ) i=j;
   }
   return i;
 }
@@ -352,38 +373,36 @@ int whereYoung( Person[] p, int m ) {
 // Sort entire array by height, weight, or age. //
 // Move one to end, then shrink the array.
 void tallOrder( Person q[], int m ) {
-  if ( ! ascending ) { shortOrder( q, m ); return; }
-  for (int k=m; k>1; k--) {
-    tall( q, k );                // Move tallest to end.
-  }                              // Now, shrink the array!
+    for (int k=m; k>1; k--) {
+      tall( q, k );                // Move tallest to end.
+    }                              // Now, shrink the array!
+    return;
 }
 void shortOrder( Person q[], int m ) {
   // Shortest-first.
-  for (int k=m; k>1; k--) {
-    shorty( q, k );
-  }
+    for (int k=m; k>1; k--) {
+      shorty( q, k );
+    }
 }
 void wideOrder( Person q[], int m ) {
-  if ( ! ascending ) { narrowOrder( q, m ); return; }
-  for (int k=m; k>1; k--) {
-    wide( q, k );
-  }
+    for (int k=m; k>1; k--) {
+      wide( q, k );
+    }
 }
 void narrowOrder( Person q[], int m ) {
-  for (int k=m; k>1; k--) {
-    narrow( q, k );
-  }
+    for (int k=m; k>1; k--) {
+      narrow( q, k );
+    }
 }
-void ageOrder( Person q[], int m ) {
-  if ( ! ascending ) { youngOrder( q, m ); return; }
-  for (int k=m; k>1; k--) {
-    old( q, k );
-  }
+void oldOrder( Person q[], int m ) {
+    for (int k=m; k>1; k--) {
+      old( q, k );
+    }
 }
 void youngOrder( Person q[], int m ) {
-  for (int k=m; k>1; k--) {
-    young( q, k );
-  }
+    for (int k=m; k>1; k--) {
+      young( q, k );
+    }
 }
 
 
@@ -456,7 +475,7 @@ class Person {
 
 class Button {
   String name="";
-  float x,y;
+  float x, y;
   float w=100, h=30;
   float r=255, g=255, b=255;
   Button( String name, float x, float y ) {
@@ -465,11 +484,11 @@ class Button {
     this.y=  y;
   }
   void show() {
-    fill(r,g,b);
+    fill(r, g, b);
     rectMode(CORNER);
     stroke(0);
     strokeWeight(4);
-    rect( x,y, w,h );
+    rect( x, y, w, h );
     strokeWeight(1);
     fill( 0 );
     text( name, x+5, y+h*2/3 );
@@ -477,5 +496,5 @@ class Button {
   boolean hit( float xx, float yy ) {
     // Return true if xx,yy within this button.
     return (xx>x && xx<x+w && yy>y && yy<y+h);
-  } 
+  }
 }
