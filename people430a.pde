@@ -213,7 +213,6 @@ class Person {
   Person( String who ) {
     w=  random( 20, 50 );
     h=  random( 50, 100 );
-    age=  int( random(99) );
     // Random colors.
     r=  random(200);
     g=  random(200);
@@ -237,7 +236,6 @@ class Person {
     text( int(h), x-20, y+44 );
     fill(255,255,0);
     text( name, 2+x-w/2, y-h/2 );
-    text( age, x-5, y+12-h/2 );
   }
   void head( float x, float headY, float hh ) {
     ellipse( x, headY, hh, hh );
