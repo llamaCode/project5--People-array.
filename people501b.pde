@@ -5,12 +5,12 @@ String subtitle=  "r to reset, q to quit, ? for help, SPACE for reports";
 String author=  "Firstname Lastname";
 float sidewalk=550;
 
-boolean ascending=true, report=false, help=false, bird=false, rat=false;
+boolean ascending=true, report=false, help=false, bird=false, cat=false;
 String up="    --->", down="    <---";
 
 int xReport=250, line=10, next=12;      // Line height.
 float birdX=1, birdY=0;
-float ratX=1, ratY=sidewalk+50;
+float catX=1, catY=sidewalk+50;
 float cloudX=0, cloudY=100;
 int cloudN=7;
 
@@ -38,7 +38,7 @@ int numButtons=3;
 void setup() {
   size(1250, 600);
   sidewalk=  height-100;
-  ratY=sidewalk+50;
+  catY=sidewalk+50;
   reset();
   //
   int x=20, y=height-40, b=0;
@@ -110,7 +110,7 @@ void help() {
   s += "\nOTHER:";
   s += "\n  + makes everyone older.";
   s += "\n  b sends bird to top of tallest!";
-  s += "\n  m sends mouse to feet of fattest!";
+  s += "\n  c sends cat to feet of fattest!";
   fill(0);
   text( s, 15, 15 );
 }
@@ -223,13 +223,13 @@ void keyPressed() {
   if (key == 'h') help=  ! help;
   if (key == '?') help=  ! help;
   if (key == 'b') bird = ! bird;
-  if (key == 'm') rat = ! rat;
+  if (key == 'c') cat = ! cat;
   if (key == '+') older( people, many );
   //
-  birdX=1;      // Reset bird (and rat).
+  birdX=1;      // Reset bird (and cat).
   birdY=1;
-  ratX=1;
-  ratY=sidewalk+50;
+  catX=1;
+  catY=sidewalk+50;
 }
 void mousePressed() {
   int n=0;
@@ -246,8 +246,8 @@ void mousePressed() {
     birdX=  mouseX;
     birdY=  mouseY;
   }
-  ratX=  0;
-  ratY= height-50;
+  catX=  0;
+  catY= height-50;
 }
 void heightOrder( Person[] p, int m ) {
   if ( ascending ) 
@@ -289,8 +289,8 @@ void animals() {
     int k=  whereTall( people, many );
     fly( 20+k*50, sidewalk - 1.5*people[k].h );
   }
-  // Rat crawls to feet of fattest.
-  if (rat) {
+  // cat crawls to feet of fattest.
+  if (cat) {
     int k=  whereWide( people, many );
     crawl( 20+k*50, sidewalk );
   }
@@ -307,18 +307,20 @@ void fly( float x, float y) {
   float up=  birdX%30<10?-30:30;
   triangle( birdX-10, birdY, birdX+10, birdY, birdX, birdY-up );
 }
-// Rat crawls to fattest Person. //
+// cat crawls to fattest Person. //
 void crawl( float x, float y) {
-  ratX += (x-ratX+30) / 150;
-  ratY += (y-ratY) / 150;
+  catX += (x-catX+30) / 150;
+  catY += (y-catY) / 150;
   fill( 50, 20, 0);
-  ellipse( ratX, ratY, 30, 15);
-  ellipse( ratX+20, ratY, 12, 10);
+  ellipse( catX, catY, 30, 15);
+  ellipse( catX+20, catY, 12, 10);
+  triangle( catX+16, catY-4, catX+20, catY-4, catX+18, catY-10 );
+  triangle( catX+20, catY-4, catX+24, catY-4, catX+22, catY-10 );
   // Animated crawling.
-  float leg=  ratX%10<5 ? -10 : 10;
+  float leg=  catX%10<5 ? -10 : 10;
   for (int j=0; j<4; j++ ) {
     stroke( 50, 20, 0 );
-    line( ratX-12+j*8, ratY+5, ratX-12+leg+j*8, ratY+10  );
+    line( catX-12+j*8, catY+5, catX-12+leg+j*8, catY+10  );
   }
 }
 
