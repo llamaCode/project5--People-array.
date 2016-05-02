@@ -246,8 +246,9 @@ void mousePressed() {
     birdX=  mouseX;
     birdY=  mouseY;
   }
-  catX=  0;
-  catY= height-50;
+  cat=  ! cat;
+  catX=1;
+  catY=sidewalk+50;
 }
 void heightOrder( Person[] p, int m ) {
   if ( ascending ) 
