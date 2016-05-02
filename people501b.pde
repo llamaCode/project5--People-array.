@@ -4,10 +4,11 @@ String title=  "Project 5 -- Array of people";
 String subtitle=  "r to reset, q to quit, ? for help, space for reports"; 
 String author=  "Firstname Lastname";
 float sidewalk;
-int line=10, next=12;      // Line height.
-int xReport;
-boolean help=true, report=false, bird=false, ascending=true;
 
+boolean help=false, report=false, bird=false, ascending=true;
+String up="    --->", down="    <---";
+
+int xReport=250, line=10, next=12;      // Line height.
 float birdX=1, birdY=0;
 float cloudX=0, cloudY=100;
 int cloudN=7;
@@ -39,11 +40,12 @@ void setup() {
   reset();
   //
   int x=20, y=height-40, b=0;
-  buttons[0]=  new Button( "Sort by HEIGHT", x+120*b++, y );
-  buttons[1]=  new Button( "Sort by WIDTH", x+120*b++, y );
-  buttons[2]=  new Button( "Sort by AGE", x+120*b++, y );
-  buttons[3]=  new Button( "UP / DOWN", x+120*b++, y );
-  numButtons=4;
+  buttons[0]=  new Button( "    RESET ALL", x+120*b++, y );
+  buttons[1]=  new Button( "Sort by HEIGHT", x+120*b++, y );
+  buttons[2]=  new Button( "Sort by WIDTH", x+120*b++, y );
+  buttons[3]=  new Button( "Sort by AGE", x+120*b++, y );
+  buttons[4]=  new Button( up, x+120*b++, y );
+  numButtons=5;
 }
 
 void reset() {
@@ -73,7 +75,6 @@ void draw() {
       buttons[j].show();
     }
   }
-  text( ascending ? "UP" : "DOWN", width-100, height-30 );
 }
 
 void scene() {
@@ -228,10 +229,15 @@ void keyPressed() {
   birdY=1;
 }
 void mousePressed() {
-  if ( buttons[0].hit(mouseX, mouseY) ) heightOrder( people, many );    // Order by height
-  else if ( buttons[1].hit(mouseX, mouseY) ) widthOrder( people, many );    // Order by width
-  else if ( buttons[2].hit(mouseX, mouseY) ) ageOrder( people, many );    // Order by age
-  else if ( buttons[3].hit(mouseX, mouseY) ) ascending = ! ascending;
+  int n=0;
+  if ( buttons[n++].hit(mouseX, mouseY) ) reset();
+  else if ( buttons[n++].hit(mouseX, mouseY) ) heightOrder( people, many );    // Order by height
+  else if ( buttons[n++].hit(mouseX, mouseY) ) widthOrder( people, many );    // Order by width
+  else if ( buttons[n++].hit(mouseX, mouseY) ) ageOrder( people, many );    // Order by age
+  else if ( buttons[n++].hit(mouseX, mouseY) ) {
+    ascending = ! ascending;
+    buttons[4].name=  ascending ? up : down;
+  }
   else {
     bird=  true;
     birdX=  mouseX;
@@ -412,22 +418,26 @@ class Person {
   float w, h;
   float r, g, b;
   int age;
+  boolean male=false;
   String name="?";
   //// CONSTRUCTORS ////
   Person( String who ) {
+    name=  who;
+    male=  random(100)<50;
     age=  int( random(1, 99) );
     if (age<20) {
       w=  random( 5+age*2, 5+age*2 );
-      h=  random( 10+age*1, 10+age*2 );
+      h=  random( 10+age*1, 10+age*2 )
+        + (male ? 3 : 0);
     } else {
-      w=  random( 20, 50 );
-      h=  random( 50, 100 );
+      w=  random( 20, 40 );
+      h=  random( 50, 100 )
+        + (male ? 15 : 0);
     }
     // Random colors.
     r=  random(200);
     g=  random(200);
     b=  random(200);
-    name=  who;
   }
 
   //// METHODS  ////
@@ -435,7 +445,13 @@ class Person {
   void show( float x, float y ) {
     fill( r, g, b );
     rectMode( CENTER );
-    rect( x, y-h/2, w, h );
+    if (male) {
+      rect( x, y-h/2, w, h );
+    }
+    else{
+      triangle( x-w/2, y, x+w/2, y, x, y-h );
+      ellipse( x, y-h*3/4, w*3/4, h/2 );      
+    }
     float shoulder=  y-h;
     float hh=  h/3;        // Head height.
     head( x, shoulder-hh/2, hh );
@@ -448,7 +464,7 @@ class Person {
     text( int(w), x-20, y+35 );
     text( int(h), x-20, y+50 );
     fill(255, 255, 0);              // Yellow on shirt.
-    text( name, 2+x-w/2, y-h/2 );
+    text( name, 2+x-w/2, 2+y-h*2/3 );
     text( age, x-5, y+12-h/2 );
   }
   void head( float x, float headY, float hh ) {
@@ -462,7 +478,10 @@ class Person {
     eye( x+6, headY-6 );
     // Hat
     fill( 255-r, 255-g, 255-b );
-    triangle( x-hh/2, headY+3-hh/2, x+hh/2, headY+3-hh/2, x, headY-15-hh/2 );
+    if (male)
+      triangle( x-hh/2, headY+3-hh/2, x+hh/2, headY+3-hh/2, x, headY-15-hh/2 );
+    else
+      rect( x, headY-3-hh/2, w*2/3, -hh/3 );
   }
   void eye( float x, float y ) {
     fill(255);
