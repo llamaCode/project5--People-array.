@@ -208,7 +208,6 @@ void order( Person q[], int m ) {
 class Person {
   float w, h;
   float r, g, b;
-  int age;
   String name="?";
   //// CONSTRUCTORS ////
   Person( String who ) {
