@@ -5,7 +5,7 @@ String subtitle=  "r to reset, q to quit, ? for help, SPACE for reports";
 String author=  "Firstname Lastname";
 float sidewalk=550;
 
-boolean help=false, report=false, ascending=true, bird=false, rat=true;
+boolean ascending=true, report=false, help=false, bird=false, rat=false;
 String up="    --->", down="    <---";
 
 int xReport=250, line=10, next=12;      // Line height.
